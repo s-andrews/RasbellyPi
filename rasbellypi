@@ -36,7 +36,7 @@ my $debug = 1;
 my $magic_number = read_magic_number();
 
 
-my $library = Sound::Library -> new("$RealBin/Sounds");
+my $library = new Sound::Library("$RealBin/Sounds");
 
 
 # Main event loop
