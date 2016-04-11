@@ -24,6 +24,15 @@ sudo apt-get upgrade (this might take a while)
 sudo apt-get install git
 ```
 
+Install omxplayer
+-----------------
+
+This is the application used to play mp3 files
+
+```
+sudo apt-get install omxplayer
+```
+
 Set your timezone
 -----------------
 
