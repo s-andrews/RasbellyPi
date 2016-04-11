@@ -26,7 +26,17 @@ ReadMode 4;
 #
 ########################################################################
 
+
+############ DEBUG ################
+# Set this to 1 to enable debugging
+#
+my $debug = 1;
+###################################
+
+
+
 my $library = Sound::Library -> new("Sounds");
+
 
 # Main event loop
 
@@ -37,7 +47,19 @@ while (1) {
   if (defined (ReadKey(-1))) {
     # Play a sound
     $library -> play_sound();
-    warn "Key was pressed\n";
+    $debug and warn "Key was pressed\n";
+
+    # Clear the buffer and see how impatient they are
+    my $urgency_count = 0;
+    while (defined (ReadKey(-1))) {
+      ++$urgency_count;
+    }
+
+    if ($urgency_count > 2) {
+      $debug and warn "They were impatient\n";
+    }
+    
+    
   }
     
 
