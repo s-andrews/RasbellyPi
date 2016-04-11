@@ -44,7 +44,9 @@ Update the image and install git
 Git is in the standard raspbian respository, but you will probably need to update your packages to get it to install.
 
 sudo apt-get update
+
 sudo apt-get upgrade (this might take a while)
+
 sudo apt-get install git
 
 
