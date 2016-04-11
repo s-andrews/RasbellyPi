@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+use warnings;
+use strict
+use Sound::Library
+
+########################################################################
+#
+# Copyright Simon Andrews 2016
+#
+# This file is part of RasbellyPi.
+#
+# RasbellyPi is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Foobar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with RasbellyPi.  If not, see <http://www.gnu.org/licenses/>.
+#
+########################################################################
+
+my $sounds = Sound::Library -> new("Sounds");
+
+# Main event loop
+
+while (1) {
+
+	# Check if bell is ringing
+
+	# Play a sound
+	$library -> play_sound();
+
+}
+
+
+
+
+
