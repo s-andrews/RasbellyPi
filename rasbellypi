@@ -1,8 +1,10 @@
 #!/usr/bin/perl
 use warnings;
-use strict
-use Sound::Library
-
+use strict;
+use Sound::Library;
+use Term::ReadKey;
+ReadMode 4;
+  
 ########################################################################
 #
 # Copyright Simon Andrews 2016
@@ -24,16 +26,20 @@ use Sound::Library
 #
 ########################################################################
 
-my $sounds = Sound::Library -> new("Sounds");
+my $library = Sound::Library -> new("Sounds");
 
 # Main event loop
 
 while (1) {
 
-	# Check if bell is ringing
+  # Check if bell is ringing
 
-	# Play a sound
-	$library -> play_sound();
+  if (defined (ReadKey(-1))) {
+    # Play a sound
+    $library -> play_sound();
+    warn "Key was pressed\n";
+  }
+    
 
 }
 
