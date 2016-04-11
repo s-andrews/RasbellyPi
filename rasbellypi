@@ -2,8 +2,7 @@
 use warnings;
 use strict;
 use Sound::Library;
-use Term::ReadKey;
-ReadMode 4;
+use FindBin qw($RealBin);
   
 ########################################################################
 #
@@ -34,35 +33,64 @@ my $debug = 1;
 ###################################
 
 
+my $magic_number = read_magic_number();
 
-my $library = Sound::Library -> new("Sounds");
+
+my $library = Sound::Library -> new("$RealBin/Sounds");
 
 
 # Main event loop
 
 while (1) {
 
-  # Check if bell is ringing
+  # This command will block until a button press is received
+  my $number = `RFSniffer`;
+  
+  chomp $number;
 
-  if (defined (ReadKey(-1))) {
+  $debug and warn "Received a signal with magic number '$number'\n";
+  
+  unless ($number =~ /^\d+$/) {
+    warn "Output of RFSniffer was not a number, it was '$number'";
+    next;
+  }
+
+  
+  if ($magic_number == 0 || $magic_number == $number) {
     # Play a sound
     $library -> play_sound();
     $debug and warn "Key was pressed\n";
-
-    # Clear the buffer and see how impatient they are
-    my $urgency_count = 0;
-    while (defined (ReadKey(-1))) {
-      ++$urgency_count;
-    }
-
-    if ($urgency_count > 2) {
-      $debug and warn "They were impatient\n";
-    }
-    
-    
+  }
+  else {
+    $debug and warn "Got a signal from someone else's bell\n";
   }
     
 
+}
+
+sub read_magic_number {
+
+  open (my $magic, "$RealBin/magic_number.txt") or do {
+    warn "Couldn't read magic number file: $! - will respond to any bell - not just yours\n";
+    return 0;
+  };
+
+  my $line = <$magic>;
+  close $magic;
+
+  unless ($line) {
+    warn "First line of magic_number.txt was empty - will respond to any bell - not just yours\n";
+    return 0;
+  }
+  
+  if ($line =~ /^Magic number =\s*(\d+)/) {
+    return $1;
+  }
+  else {
+    warn "First line of magic_number.txt didn't have the expected format - will respond to any bell - not just yours\n";
+    return 0;    
+  }
+  
 }
 
 
