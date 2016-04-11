@@ -4,9 +4,11 @@ INSTALLATION
 Create Basic Image
 ------------------
 
-In principle this application should work on any of the standard linux images for the Pi.  The instructions are based around the mimimal Raspberian image distributed by the Pi foundation though.
+In principle this application should work on any of the standard linux images for the Pi.  The instructions are based around the mimimal Raspbian image distributed by the Pi foundation though.
 
 Download the Raspbian Jessie Lite image (zip) file from https://www.raspberrypi.org/downloads/raspbian/, then follow the instruction at https://www.raspberrypi.org/documentation/installation/installing-images/README.md to install it to an SD card.  Insert the card into your PI and boot from it.
+
+The default user on raspbian is 'pi' with password 'raspberry'.  It's probably a good idea to change this.
 
 Install the BCM2835 C library
 -----------------------------
@@ -36,6 +38,14 @@ We use the perl module which talks to the C library installed in the previous st
 perl -MCPAN -e 'install Device::BCM2835'
 
 
+Update the image and install git
+--------------------------------
+
+Git is in the standard raspbian respository, but you will probably need to update your packages to get it to install.
+
+sudo apt-get update
+sudo apt-get upgrade (this might take a while)
+sudo apt-get install git
 
 
 
