@@ -59,8 +59,13 @@ sub play_sound {
   my $collection = $obj->[int rand (scalar @$obj)];
 
   my $file = $collection->get_file();
-  
-  system ("aplay", $file) == 0 or warn "Failed to play '$file'";
+
+  if ($file =~ /\.wav$/i) {
+    system ("aplay", $file) == 0 or warn "Failed to play '$file'";
+  }
+  elsif ($file =~ /\.mp3$/i) {
+    system ("omxplayer", $file) == 0 or warn "Failed to play '$file'";
+  }
   
 }
 
