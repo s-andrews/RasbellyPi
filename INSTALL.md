@@ -17,6 +17,7 @@ Follow the instructions at http://www.airspayce.com/mikem/bcm2835/ to install th
 
 It should be a simple:
 
+```
 wget [latest source package]
 
 tar -xzvf [downloaded file name]
@@ -28,27 +29,29 @@ cd [directory which was created]
 make
 
 sudo make install
-
+```
 
 Install the Device::BCM2835 perl wrapper
 ----------------------------------------
 
 We use the perl module which talks to the C library installed in the previous step.  To get this you can use the CPAN module:
 
+```
 perl -MCPAN -e 'install Device::BCM2835'
-
+```
 
 Update the image and install git
 --------------------------------
 
 Git is in the standard raspbian respository, but you will probably need to update your packages to get it to install.
 
+```
 sudo apt-get update
 
 sudo apt-get upgrade (this might take a while)
 
 sudo apt-get install git
-
+```
 
 
 
