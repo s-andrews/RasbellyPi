@@ -53,5 +53,27 @@ sudo apt-get upgrade (this might take a while)
 sudo apt-get install git
 ```
 
+Clone the latest RaspbellyPi code
+---------------------------------
+
+Download the latest versions of the RaspbellyPi code using:
+
+```
+git clone https://github.com/s-andrews/RasbellyPi.git
+```
+
+Set your timezone
+-----------------
+
+Since some of the sounds you specify might depend on getting the local time correct you need to set your proper timezone rather than using the default of UTC.
+
+```
+sudo dpkg-reconfigure tzdata
+```
+
+
+
+
+
 
 
