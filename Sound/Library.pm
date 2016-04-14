@@ -10,7 +10,7 @@ package Sound::Library;
 
 sub new {
 
-  my $debug = 1;
+  my $debug = 0;
   
   my ($package,$base_dir) = @_;
 
@@ -109,9 +109,38 @@ sub play_sound {
 
   my ($obj) = @_;
 
-  # TODO: Work out which collections are valid and pick the best one
+  my @valid_collections;
 
-  my $collection = $obj->[int rand (scalar @$obj)];
+  foreach my $collection (@$obj) {
+    if ($collection -> is_valid()) {
+      push @valid_collections,$collection;
+    }
+  }
+
+  unless (@valid_collections) {
+    warn "There are no valid sound collections!!  Can't play anything\n";
+    return;
+  }
+  
+  # From the valid collections we sort by their
+  # duration so we always select the most specific
+  # collection which is currently valid.
+
+  @valid_collections = sort {$a -> duration() <=> $b -> duration()} @valid_collections;
+
+  # We now want to select from the set of shortest duration collections
+  my $last_index = 0;
+
+  for my $i(1..$#valid_collections) {
+    if ($valid_collections[$i]->duration() == $valid_collections[0]->duration()) {
+      $last_index = $i;
+    }
+    else {
+      last;
+    }
+  }
+  
+  my $collection = @valid_collections[int rand($last_index+1)];
 
   my $file = $collection->get_file();
 
