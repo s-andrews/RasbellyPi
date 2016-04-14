@@ -90,7 +90,7 @@ Install the Perl Date::Calc module
 We need Date::Calc to calculate whether particular date ranges are valid within the application
 
 ```
-sudo perl -MCPAN -e 'install Date::Calc'
+sudo apt-get install libdate-calc-perl
 ```
 
 Clone the latest RaspbellyPi code
