@@ -41,9 +41,57 @@ sub new {
 
     $debug and warn "Found ".scalar @sound_files." sound files\n";
 
+    my $collection = new Sound::SoundCollection(\@sound_files);
     
     if (@sound_files) {
-      push @$data, new Sound::SoundCollection(\@sound_files);
+      push @$data, $collection;
+    }
+
+    # Now see if there is a time_limit.txt file which restricts
+    # when these sounds would be relevant
+    if (-e "$directory/time_limit.txt") {
+
+      my $start_day;
+      my $start_month;
+      my $end_day;
+      my $end_month;
+
+      open (LIMIT,"$directory/time_limit.txt") or die "Can't read $directory/time_limit.txt";
+      while (<LIMIT>) {
+	next if (/^#/);
+
+	s/[\r\n]//g;
+	s/\s+$//;
+	
+	my ($key,$value) = split(/\s*=\s*/);
+
+	unless ($value =~ /^\d+$/) {
+	  warn "Value was not an integer in $_ in $directory/time_limit.txt";
+	  next;
+	}
+
+	if ($key eq 'start_day') {
+	  $start_day = $value;
+	}
+	elsif ($key eq 'start_month') {
+	  $start_month = $value;
+	}
+	elsif ($key eq 'end_day') {
+	  $end_day = $value;
+	}
+	elsif ($key eq 'end_month') {
+	  $end_month = $value;
+	}
+      }
+
+      close LIMIT;
+
+      unless ($start_day and $start_month and $end_day and $end_month) {
+	warn "Not enough values to specific time limit in  $directory/time_limit.txt";
+      }
+      else {
+	$collection -> set_date_range($start_month,$start_day,$end_month,$end_day);
+      }      
     }
   }
   
