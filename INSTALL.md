@@ -84,6 +84,14 @@ cd ~
 
 You should now be able to run RFSniffer which should hang until you press the button on your doorbell, at which point it should print out the unique code associated with your bell so that other people's nearby wireless bells won't set yours off.  Make a note of this number as you'll need it in a minute.
 
+Install the Perl Date::Calc module
+----------------------------------
+
+We need Date::Calc to calculate whether particular date ranges are valid within the application
+
+```
+sudo perl -MCPAN -e 'install Date::Calc'
+```
 
 Clone the latest RaspbellyPi code
 ---------------------------------
