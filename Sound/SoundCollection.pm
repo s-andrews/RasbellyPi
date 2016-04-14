@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use warnings;
 use strict;
-use Date::Calc qw(Delta_Days);
+use Date::Calc;
 use Time::Local;
 
 package Sound::SoundCollection;
@@ -26,7 +26,7 @@ sub set_date_range {
 
   my $current_year = (localtime(time()))[5] + 1900;
 
-  my $duration = Delta_Days($current_year,$start_month,$start_day,$current_year,$end_month,$end_day);
+  my $duration = Date::Calc::Delta_Days($current_year,$start_month,$start_day,$current_year,$end_month,$end_day);
 
   $obj -> {start_month => $start_month,
 	   end_month => $end_month,

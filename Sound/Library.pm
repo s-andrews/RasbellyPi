@@ -2,6 +2,8 @@
 use warnings;
 use strict;
 use Sound::SoundCollection;
+use Sound::SoundPlayer;
+use File::Glob;
 
 package Sound::Library;
 
@@ -27,15 +29,18 @@ sub new {
     $debug and warn "Looking at directory $directory\n";
     
     next unless (-d $directory);
-    my @files = <$directory/*>;
+    my @files = File::Glob::bsd_glob("$directory/*");
 
     $debug and warn "Found ".scalar @files." files\n";
     
     my @sound_files;
 
     foreach my $file (@files) {
-      if ($file =~ /(\.wav$|\.mp3$)/) {
+      if ($file =~ /(\.wav$|\.mp3$)/i) {
 	push @sound_files,$file;
+      }
+      else {
+	warn "$file is not a sound file";
       }
     }
 
@@ -62,6 +67,8 @@ sub new {
 
 	s/[\r\n]//g;
 	s/\s+$//;
+
+	next unless ($_);
 	
 	my ($key,$value) = split(/\s*=\s*/);
 
@@ -108,12 +115,10 @@ sub play_sound {
 
   my $file = $collection->get_file();
 
-  if ($file =~ /\.wav$/i) {
-    system ("aplay", $file) == 0 or warn "Failed to play '$file'";
-  }
-  elsif ($file =~ /\.mp3$/i) {
-    system ("omxplayer", $file) == 0 or warn "Failed to play '$file'";
-  }
+  my $player = new Sound::SoundPlayer();
+
+  $player -> play_sound($file);
+  
   
 }
 
