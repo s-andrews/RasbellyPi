@@ -40,7 +40,7 @@ sub new {
 	push @sound_files,$file;
       }
       else {
-	warn "$file is not a sound file";
+	$debug and warn "$file is not a sound file";
       }
     }
 

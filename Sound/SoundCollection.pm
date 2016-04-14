@@ -3,7 +3,6 @@ use warnings;
 use strict;
 use Date::Calc;
 use Time::Local;
-use Data::Dumper;
 
 package Sound::SoundCollection;
 
@@ -35,7 +34,6 @@ sub set_date_range {
   $obj -> {end_day} = $end_day;
   $obj -> {duration} = $duration;
 
-  warn "Date range was set\n";
 }
 
 sub duration  {
@@ -53,31 +51,22 @@ sub is_valid {
 
   my ($obj) = @_;
 
-  print Data::Dumper::Dumper($obj);
-
   # Check if there is a range set at all
   unless (exists $obj -> {start_month}) {
     return 1;
   }
 
-  warn "Testing validity\n";
 
   my $current_year = (localtime(time()))[5] + 1900;
   my $lower_time = Time::Local::timelocal(0,0,0,$obj->{start_day},$obj->{start_month},$current_year);
   my $upper_time = Time::Local::timelocal(59,59,23,$obj->{end_day},$obj->{end_month},$current_year);
   my $current_time = time();
 
-  warn "Lower=$lower_time Upper=$upper_time Current=$current_time\n";
-
   if ($current_time >= $lower_time && $current_time <= $upper_time) {
-    warn "Valid\n";
     return(1)
   }
 
-  warn "Not valid\n";
-  return(0);
-  
-  
+  return(0);  
   
 }
 
