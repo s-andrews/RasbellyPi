@@ -1,0 +1,19 @@
+#! /bin/sh
+# /etc/init.d/rasbellypi
+
+case "$1" in
+  start)
+    echo "Starting RasbellyPi"
+    /home/pi/RasbellyPi > /dev/null 2>&1 &
+    ;;
+  stop)
+    echo "Stopping RasbellyPi"
+    killall -9 RasbellyPi
+    ;;
+  *)
+    echo "Usage: /etc/init.d/rasbellypi {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
