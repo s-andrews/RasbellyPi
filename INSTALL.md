@@ -118,3 +118,17 @@ nano magic_number.txt
 [Press Control+X]
 ```
 
+Add the script to the init system
+---------------------------------
+
+We have included an init script so you can start the rasbellypi program when the machine boots.  To install this do the following:
+
+```
+cd /etc/init.d/
+
+sudo ln -s /home/pi/RasbellyPi/init/rasbellypi .
+
+sudo update-rc.d rasbellypi defaults
+
+```
+
