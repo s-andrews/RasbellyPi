@@ -3,6 +3,7 @@ use warnings;
 use strict;
 use Sound::Library;
 use FindBin qw($RealBin);
+use Sound::SoundPlayer;
   
 ########################################################################
 #
@@ -38,6 +39,19 @@ my $magic_number = read_magic_number();
 
 my $library = new Sound::Library("$RealBin/Sounds");
 
+{
+
+  my $year = (localtime())[5]+1900;
+
+  if ($year >=2016) {
+    # They've probably set the clock
+    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready.mp3");
+  }
+  else {
+    # There's no clock set
+    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_clock.mp3");
+  }
+}
 
 # Main event loop
 
