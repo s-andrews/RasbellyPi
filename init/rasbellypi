@@ -4,11 +4,11 @@
 case "$1" in
   start)
     echo "Starting RasbellyPi"
-    /home/pi/RaspbellyPi/raspbellypi > /dev/null 2>&1 &
+    /home/pi/RasbellyPi/rasbellypi > /dev/null 2>&1 &
     ;;
   stop)
     echo "Stopping RasbellyPi"
-    killall -9 RasbellyPi
+    killall -9 rasbellypi
     ;;
   *)
     echo "Usage: /etc/init.d/rasbellypi {start|stop}"
