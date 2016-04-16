@@ -4,7 +4,7 @@
 case "$1" in
   start)
     echo "Starting RasbellyPi"
-    /home/pi/RasbellyPi/raspbellypi > /dev/null 2>&1 &
+    /home/pi/RaspbellyPi/raspbellypi > /dev/null 2>&1 &
     ;;
   stop)
     echo "Stopping RasbellyPi"
