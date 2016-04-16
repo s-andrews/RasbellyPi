@@ -4,6 +4,7 @@ use strict;
 use Sound::Library;
 use FindBin qw($RealBin);
 use Sound::SoundPlayer;
+use lib $RealBin;
   
 ########################################################################
 #
