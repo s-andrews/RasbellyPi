@@ -111,11 +111,28 @@ sub play_sound {
 
   my @valid_collections;
 
-  foreach my $collection (@$obj) {
-    if ($collection -> is_valid()) {
-      push @valid_collections,$collection;
+  if ((localtime())[5]+1900 >=2016) {
+    # We have a clock we can trust
+
+    foreach my $collection (@$obj) {
+      if ($collection -> is_valid()) {
+	push @valid_collections,$collection;
+      }
     }
   }
+  else {
+    # We can't trust the clock - only use the
+    # collections which don't have a time limit
+    # on them
+    foreach my $collection (@$obj) {
+      unless ($collection -> is_limited()) {
+	push @valid_collections,$collection;
+      }
+    }
+    
+  }
+
+  
 
   unless (@valid_collections) {
     warn "There are no valid sound collections!!  Can't play anything\n";
@@ -143,6 +160,8 @@ sub play_sound {
   my $collection = @valid_collections[int rand($last_index+1)];
 
   my $file = $collection->get_file();
+
+  warn "Playing $file\n";
 
   my $player = new Sound::SoundPlayer();
 

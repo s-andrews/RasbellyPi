@@ -70,6 +70,12 @@ sub is_valid {
   
 }
 
+sub is_limited {
+  my ($obj) = @_;
+
+  return (exists $obj->{start_month});
+}
+
 
 sub get_file {
 
