@@ -42,16 +42,16 @@ my $library = new Sound::Library("$RealBin/Sounds");
 
 {
 
-  my $network_test = system("host www.google.com > /dev/null 2>&1");
+#  my $network_test = system("host www.google.com > /dev/null 2>&1");
 
-  if ($network_test == 0) {
-    # They've probably set the clock
+#  if ($network_test == 0) {
+#    # They've probably set the clock
     (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready.mp3");
-  }
-  else {
-    # There's no clock set
-    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_network.mp3");
-  }
+#  }
+#  else {
+#    # There's no clock set
+#    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_network.mp3");
+#  }
 
   # We'll also get the system to say the date
 
