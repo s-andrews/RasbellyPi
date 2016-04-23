@@ -33,6 +33,18 @@ This is the application used to play mp3 files
 sudo apt-get install omxplayer
 ```
 
+Install espeak
+-----------------
+
+This is the text to speech application used to read the date
+
+```
+sudo apt-get install espeak
+```
+
+Some of the espeak dependencies are not signed in raspbian so you'll need to accept an extra warning when installing them
+
+
 Set your timezone
 -----------------
 
@@ -132,3 +144,12 @@ sudo update-rc.d rasbellypi defaults
 
 ```
 
+[Optional] Install the cron job
+-------------------------------
+
+If you want your doorbell to do something interesting on April 1st then you'll need to install the cron script in the cron directory into your users crontab.
+
+```
+cd ~/RasbellyPi/cron
+crontab < april_fool.cron
+```
