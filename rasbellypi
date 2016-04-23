@@ -50,7 +50,7 @@ my $library = new Sound::Library("$RealBin/Sounds");
   }
   else {
     # There's no clock set
-    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_clock.mp3");
+    (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_network.mp3");
   }
 
   # We'll also get the system to say the date
