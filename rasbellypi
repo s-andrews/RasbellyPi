@@ -42,9 +42,9 @@ my $library = new Sound::Library("$RealBin/Sounds");
 
 {
 
-  my $year = (localtime())[5]+1900;
+  my $network_test = system("host www.google.com > /dev/null 2>&1");
 
-  if ($year >=2016) {
+  if ($network_test == 0) {
     # They've probably set the clock
     (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready.mp3");
   }
@@ -52,6 +52,31 @@ my $library = new Sound::Library("$RealBin/Sounds");
     # There's no clock set
     (new Sound::SoundPlayer()) ->play_sound("$RealBin/Notifications/ready_no_clock.mp3");
   }
+
+  # We'll also get the system to say the date
+
+  my ($day,$month,$year) = (localtime())[3,4,5];
+
+  my @months = qw(January February March April May June July August September October November December);
+  $year += 1900;
+
+  # To make the year easier to hear we'll split it into two numbers
+  my $year1 = substr($year,0,2);
+  my $year2 = substr($year,2,2);
+
+  # We'll add the appropriate extension to the day
+  $day =~ s/1$/1st/;
+  $day =~ s/2$/2nd/;
+  $day =~ s/3$/3rd/;
+  $day =~ s/(\d)$/${1}nd/;
+  
+  my $date_phrase = "$day $months[$month] $year1 $year2";
+
+  $debug and warn "Date is '$date_phrase'\n";
+
+  system("speak \"$date_phrase\" > /dev/null 2>&1") == 0 or warn "Failed to say the date";
+  
+  
 }
 
 # Main event loop
