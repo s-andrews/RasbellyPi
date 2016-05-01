@@ -1,0 +1,23 @@
+#! /bin/sh
+# /etc/network/if-up.d/rasbellypi_ifup
+
+case "$IFACE" in
+  lo)
+      # We don't want to respond to the loopback interface
+      exit 0
+  ;;
+  *)
+  ;;
+  
+esac
+
+# Skew the clock to the correct time
+  
+service ntp stop
+ntpdate -s time.nist.gov
+service ntp start
+
+service rasbellypi stop
+service rasbellypi start
+  
+exit 0
