@@ -71,6 +71,18 @@ cd ~
 
 ```
 
+If you can't get to this repository there's also a github mirror:
+
+```
+git clone https://github.com/WiringPi/WiringPi.git
+
+cd WiringPi
+
+./build
+
+cd ~
+```
+
 Install the 433Utils tools
 --------------------------
 
