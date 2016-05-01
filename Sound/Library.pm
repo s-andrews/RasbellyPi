@@ -111,7 +111,7 @@ sub play_sound {
 
   my @valid_collections;
 
-  if (system("ping -c1 google.com") == 0) {
+  if (system("ping -c1 google.com > /dev/null 2>&1") == 0) {
     # We have a clock we can trust
 
     foreach my $collection (@$obj) {
