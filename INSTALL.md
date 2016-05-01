@@ -153,3 +153,30 @@ If you want your doorbell to do something interesting on April 1st then you'll n
 cd ~/RasbellyPi/cron
 crontab < april_fool.cron
 ```
+
+[Optional] Extend your root partition
+-------------------------------------
+
+When you create your image you will only use the amount of space the image occupies on the SD card meaning you will have unused space available to you.  To reclaim this space you need to run:
+
+```
+sudo raspi-config
+```
+
+..and then select option 1 (expand filesystem).  The filesystem will be expanded on the next boot.
+
+
+Add your custom ringtones
+-------------------------
+The system will come with a limited number of standard doorbell type sounds, but the point of this system is to be able to create your own custom sounds.
+
+To do this you need to create a new folder inside the Sounds (not Sound) folder of the RasbellyPi installation.  Into this folder you can save mp3 or wav files for the sounds you want to use.  If you want these to appy to a specific date then copy the time_limit.txt eample file from the Sounds directory into the folder you just created (keep the same name), and edit it to reflect the date range you want to use.  The format is pretty self-explanatory.  At the moment we don't support dates which span the new year, so you'll need to make 2 folders if you want to do this.
+
+The example below would make these sounds play only on 4th July
+
+```
+start_day = 14
+start_month = 4
+end_day = 15
+end_month = 4
+```
